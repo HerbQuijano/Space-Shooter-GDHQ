@@ -281,6 +281,63 @@ RectTransform:
   m_AnchoredPosition: {x: -95.45, y: -15}
   m_SizeDelta: {x: 129.09363, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &106987907
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.152426
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 265836758482485449, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929706505248755710, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+      propertyPath: m_Name
+      value: ExtraLife
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
 --- !u!114 &171043308 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3902924163349312186, guid: 16d3b70a2ac676e48bff1916ca8163bc, type: 3}
@@ -414,7 +471,7 @@ RectTransform:
   - {fileID: 5241992}
   - {fileID: 1481641777}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -564,6 +621,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3902924163349312186, guid: 16d3b70a2ac676e48bff1916ca8163bc, type: 3}
+      propertyPath: _playerHealth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3902924163349312187, guid: 16d3b70a2ac676e48bff1916ca8163bc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -620,7 +681,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1009825235
 GameObject:
@@ -704,7 +765,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1009825239
 MonoBehaviour:
@@ -847,7 +908,7 @@ Transform:
   m_LocalScale: {x: 1.0668504, y: 1.0699087, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1073409217
 Animator:
@@ -932,7 +993,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1172726216
 GameObject:
@@ -1042,7 +1103,7 @@ Transform:
   m_Children:
   - {fileID: 1946458035}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1334049842
 GameObject:
@@ -1244,7 +1305,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1862292091 stripped
 MonoBehaviour:
@@ -1577,7 +1638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
       propertyPath: _powerUpPrefabs.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
       propertyPath: _powerUpPrefabs.Array.data[0]
@@ -1595,6 +1656,14 @@ PrefabInstance:
       propertyPath: _powerUpPrefabs.Array.data[3]
       value: 
       objectReference: {fileID: 6989668026849239554, guid: 62846204dc425654799d8e519eb82f50, type: 3}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: _powerUpPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 6929706505248755710, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: powerUpSpawnTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7908120762715661148, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
       propertyPath: m_Name
       value: Spawn Manager

@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
     public int ammoCount = 15;
 
     private bool _isShiftPressed = false;
-//    private Color m_shieldColor;
-//   private float m_Red, m_Blue, m_Green;
+    //    private Color m_shieldColor;
+    //   private float m_Red, m_Blue, m_Green;
     private SpriteRenderer m_spriteRenderer;
 
 
@@ -62,6 +62,22 @@ public class Player : MonoBehaviour
         else
         {
             _audioSource.clip = _audioClip;
+        }
+    }
+
+    public void AddExtraLife()
+    {
+        if (_playerHealth >= 3)
+        {
+            _ui_manager.UpdateLives(_playerHealth);
+            UpdateEngineDamage();
+        }
+        else
+        {
+            Debug.Log(_playerHealth);
+            _playerHealth += 1;
+            _ui_manager.UpdateLives(_playerHealth);
+            UpdateEngineDamage();
         }
     }
 
@@ -104,9 +120,9 @@ public class Player : MonoBehaviour
                     _ui_manager.UpdateAmmo(ammoCount);
                     _audioSource.Stop();
                 }
-                
+
             }
-            
+
 
 
         }
@@ -178,16 +194,7 @@ public class Player : MonoBehaviour
             return;
         }
         _playerHealth -= 1;
-
-        if (_playerHealth == 2)
-        {
-            _leftEngineDamage.SetActive(true);
-        }
-        else if (_playerHealth == 1)
-        {
-            _rightEngineDamage.SetActive(true);
-        }
-
+        UpdateEngineDamage();
 
         _ui_manager.UpdateLives(_playerHealth);
 
@@ -203,13 +210,35 @@ public class Player : MonoBehaviour
 
     }
 
+    private void UpdateEngineDamage()
+    {
+        switch (_playerHealth)
+        {
+            case 1:
+                _leftEngineDamage.SetActive(true);
+                _rightEngineDamage.SetActive(true);
+                break;
+            case 2:
+                _leftEngineDamage.SetActive(true);
+                _rightEngineDamage.SetActive(false);
+                break;
+            case 3:
+                _leftEngineDamage.SetActive(false);
+                _rightEngineDamage.SetActive(false);
+                break;
+        }
+
+
+
+    }
+
     private void ShieldDamage()
     {
         _shieldStrength -= 1;
         ShieldColorChange();
 
 
-       if (_shieldStrength == 0)
+        if (_shieldStrength == 0)
         {
             _isShieldActive = false;
             _shieldFXPrefab.SetActive(false);
@@ -219,7 +248,7 @@ public class Player : MonoBehaviour
 
     private void ShieldColorChange()
     {
-        
+
 
         switch (_shieldStrength)
         {
