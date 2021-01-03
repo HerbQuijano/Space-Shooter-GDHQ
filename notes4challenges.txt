@@ -1,0 +1,9 @@
+manguera boiler 1/2 a 3/4
+
+
+
+** el problema de los lasers es causado porque estamos usando el mismo
+prefab de laser que usamos del player y por lo tanto, cada laser enemigo tiene un script laser
+que esta triggereando dos veces el player.ReceiveDamage()
+Nota: No era causado por eso, el metodo ReceiveDamage estaba siendo llamado dos veces, tambien
+era llamado por el Player cuando tocaba un enemyLaser

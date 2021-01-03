@@ -407,15 +407,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82658cae4996e884cb9641d20322256c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeSpeed: 5
-  bulletPrefab: {fileID: 4752314178933509999, guid: 05c59243ca88b424d88b3d109e1702ce, type: 3}
+  _shipSpeed: 5
+  bulletPrefab: {fileID: 923080591889224116, guid: 0f8406a8961a0f5418f8e06c7e5bacc4, type: 3}
   tripleShotPrefab: {fileID: 6948556451968868705, guid: 67193270be5353846a23abfecbc62164, type: 3}
   _explosionPrefab: {fileID: 5493793960139816384, guid: bda88f96c26bd36409896be2d31df68d, type: 3}
   _fireRate: 0.5
   _shieldFXPrefab: {fileID: 7206317676630793586}
-  _engineDamage:
-  - {fileID: 1844808504}
-  - {fileID: 1326009431}
+  _rightEngineDamage: {fileID: 1326009431}
+  _leftEngineDamage: {fileID: 1844808504}
   _playerHealth: 3
   _isTripleShotActive: 0
   _isShieldActive: 0
