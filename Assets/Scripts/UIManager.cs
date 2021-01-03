@@ -61,6 +61,10 @@ public class UIManager : MonoBehaviour
             _ammoCount.color = Color.red;
 
         }
+        else if (ammoCount > 0)
+        {
+            _ammoCount.color = Color.white;
+        }
     }
 
     private void GameOverSequence()

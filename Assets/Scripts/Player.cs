@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 //using System.Security.Policy;
@@ -64,6 +65,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AddAmmo()
+    {
+        ammoCount = 15;
+        _ui_manager.UpdateAmmo(ammoCount);
+
+    }
+
     void Update()
     {
         CalculateMovement();
@@ -80,6 +88,7 @@ public class Player : MonoBehaviour
             if (_isTripleShotActive == true)
             {
                 Instantiate(tripleShotPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+                _audioSource.Play();
             }
             if (_isTripleShotActive == false)
             {

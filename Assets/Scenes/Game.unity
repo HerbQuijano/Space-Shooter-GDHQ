@@ -1576,6 +1576,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: _powerUpPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
       propertyPath: _powerUpPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 1837389632934130693, guid: 418cd0ca78aa87e478dcb8bb4051c82f, type: 3}
@@ -1587,6 +1591,10 @@ PrefabInstance:
       propertyPath: enemySpawnTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: _powerUpPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 6989668026849239554, guid: 62846204dc425654799d8e519eb82f50, type: 3}
     - target: {fileID: 7908120762715661148, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
       propertyPath: m_Name
       value: Spawn Manager

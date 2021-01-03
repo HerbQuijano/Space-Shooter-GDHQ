@@ -10,6 +10,7 @@ TagManager:
   - ShieldPower
   - Shield
   - EnemyLaser
+  - PowerUp
   layers:
   - Default
   - TransparentFX
