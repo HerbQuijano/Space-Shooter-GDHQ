@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using System.Linq.Expressions;
 //using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] public float _cubeSpeed;
+    [SerializeField] public float _shipSpeed;
     private float _baseCubeSpeed;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject tripleShotPrefab;
@@ -13,38 +14,27 @@ public class Player : MonoBehaviour
     private float _nextFire = 0.0f;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private GameObject _shieldFXPrefab;
-    [SerializeField] private GameObject[] _engineDamage;
+   
+    [SerializeField] private GameObject _rightEngineDamage;
+    [SerializeField] private GameObject _leftEngineDamage;
 
     [SerializeField] private int _playerHealth = 3;
     private SpawnManager _spawnManager;
-
-
     [SerializeField] private bool _isTripleShotActive = false;
     [SerializeField] private bool _isShieldActive = false;
     [SerializeField] private bool _isSpeedBoostActive = false;
-
     [SerializeField] private AudioClip _audioClip;
     [SerializeField] private AudioSource _audioSource;
-
-   
-
-
     [SerializeField] private int _score = 0;
-
     private UIManager _ui_manager;
-
 
     void Start()
     {
-
-        
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         _ui_manager = FindObjectOfType<UIManager>();
         _audioSource = GetComponent<AudioSource>();
-        
-
-        _baseCubeSpeed = _cubeSpeed;
+        _baseCubeSpeed = _shipSpeed;
 
         if (_spawnManager == null)
         {
@@ -63,19 +53,13 @@ public class Player : MonoBehaviour
         {
             _audioSource.clip = _audioClip;
         }
-
-      
-        
     }
-
-
-
 
     void Update()
     {
         CalculateMovement();
         Fire();
-      
+
     }
 
     private void Fire()
@@ -93,12 +77,11 @@ public class Player : MonoBehaviour
                 Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
             }
             _audioSource.Play();
-            
+
 
         }
 
     }
-
 
 
     void CalculateMovement()
@@ -111,14 +94,14 @@ public class Player : MonoBehaviour
 
         if (_isSpeedBoostActive == false)
         {
-            _cubeSpeed = _baseCubeSpeed;
+            _shipSpeed = _baseCubeSpeed;
         }
         if (_isSpeedBoostActive == true)
         {
-            _cubeSpeed = 10f;
+            _shipSpeed = 10f;
         }
 
-        transform.Translate(direction * _cubeSpeed * Time.deltaTime);
+        transform.Translate(direction * _shipSpeed * Time.deltaTime);
 
 
 
@@ -146,17 +129,27 @@ public class Player : MonoBehaviour
             _shieldFXPrefab.SetActive(false);
             return;
         }
-        _playerHealth -= 1;
-        //Debug.Log(_playerHealth);
+        _playerHealth = _playerHealth - 1;
+
+        if (_playerHealth == 2)
+        {
+            _leftEngineDamage.SetActive(true);
+        }
+        else if (_playerHealth == 1)
+        {
+            _rightEngineDamage.SetActive(true);
+        }
+        
+        
         _ui_manager.UpdateLives(_playerHealth);
-        _engineDamage[Random.Range(0, 2)].SetActive(true);
+       
 
         if (_playerHealth <= 0)
         {
             Instantiate(_explosionPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
-            
+
         }
 
 
@@ -211,10 +204,10 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyLaser"))
         {
             Destroy(other.gameObject);
-            ReceiveDamage();
+            //ReceiveDamage();
         }
 
-        
+
     }
 
 

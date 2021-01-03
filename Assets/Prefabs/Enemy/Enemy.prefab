@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemySpeed: 1.5
   _enemyScoreValue: 10
-  _enemyLaserPrefab: {fileID: 2799731370106653960, guid: 67347e5e44500324aa365ac98e38c55c, type: 3}
+  _enemyLaserPrefab: {fileID: 2992348238554574394, guid: 67347e5e44500324aa365ac98e38c55c, type: 3}
 --- !u!50 &-2285366766559036820
 Rigidbody2D:
   serializedVersion: 4
