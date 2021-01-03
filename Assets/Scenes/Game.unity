@@ -1494,6 +1494,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: _powerUpPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5338307039651813497, guid: e3f139f3262eda347b756bdb905797b3, type: 3}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: _powerUpPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 5338307039651813497, guid: e3f139f3262eda347b756bdb905797b3, type: 3}
+    - target: {fileID: 7908120762715661147, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
+      propertyPath: enemySpawnTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7908120762715661148, guid: fd86707f0e04ee242a401d2c1367106d, type: 3}
       propertyPath: m_Name
       value: Spawn Manager

@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     private float _enemyFireRate = 3.0f;
     private float _canFire = -1.0f;
 
-    
+
 
 
     private void Start()
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         {
             _enemyFireRate = Random.Range(3f, 7f);
             _canFire = Time.time + _enemyFireRate;
-            
+
             GameObject enemyLaser = Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
             Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
 
@@ -64,15 +64,13 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Projectile"))
         {
             Player player = FindObjectOfType<Player>();
-            //Debug.Log("Hit: Bullet");
             Destroy(other.gameObject);
             player.AddScore(_enemyScoreValue);
-            //addscore to player
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
             _explosionSound.Play();
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.3f);
+            Destroy(this.gameObject, 2f);
         }
     }
 
@@ -83,8 +81,6 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y <= -7f)
         {
-
-            //transform.position = new Vector3(Random.Range(-8f,8f),7f, 0);
             Destroy(this.gameObject);
         }
         else
@@ -92,9 +88,4 @@ public class Enemy : MonoBehaviour
             return;
         }
     }
-
-   
-
-
-
 }

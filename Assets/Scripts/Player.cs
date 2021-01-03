@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 //using System.Security.Policy;
 using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _leftEngineDamage;
 
     [SerializeField] private int _playerHealth = 3;
+    private int _shieldStrength = 3;
     private SpawnManager _spawnManager;
     [SerializeField] private bool _isTripleShotActive = false;
     [SerializeField] private bool _isShieldActive = false;
@@ -29,6 +32,10 @@ public class Player : MonoBehaviour
     private UIManager _ui_manager;
 
     private bool _isShiftPressed = false;
+    private Color m_shieldColor;
+    private float m_Red, m_Blue, m_Green;
+    private SpriteRenderer m_spriteRenderer;
+
 
     void Start()
     {
@@ -37,6 +44,7 @@ public class Player : MonoBehaviour
         _ui_manager = FindObjectOfType<UIManager>();
         _audioSource = GetComponent<AudioSource>();
         _baseCubeSpeed = _shipSpeed;
+        m_spriteRenderer = _shieldFXPrefab.GetComponent<SpriteRenderer>();
 
         if (_spawnManager == null)
         {
@@ -114,13 +122,13 @@ public class Player : MonoBehaviour
 
         if (_isShiftPressed == true)
         {
-            transform.Translate(direction * (_shipSpeed*1.5f) * Time.deltaTime);
+            transform.Translate(direction * (_shipSpeed * 1.5f) * Time.deltaTime);
         }
         else
         {
             transform.Translate(direction * _shipSpeed * Time.deltaTime);
         }
-        
+
 
 
 
@@ -146,8 +154,7 @@ public class Player : MonoBehaviour
     {
         if (_isShieldActive == true)
         {
-            _isShieldActive = false;
-            _shieldFXPrefab.SetActive(false);
+            ShieldDamage();
             return;
         }
         _playerHealth = _playerHealth - 1;
@@ -176,6 +183,38 @@ public class Player : MonoBehaviour
 
     }
 
+    private void ShieldDamage()
+    {
+        _shieldStrength = _shieldStrength - 1;
+        ShieldColorChange();
+
+
+       if (_shieldStrength == 0)
+        {
+            _isShieldActive = false;
+            _shieldFXPrefab.SetActive(false);
+        }
+
+    }
+
+    private void ShieldColorChange()
+    {
+        
+
+        switch (_shieldStrength)
+        {
+            case 3:
+                m_spriteRenderer.color = Color.white;
+                break;
+            case 2:
+                m_spriteRenderer.color = Color.yellow;
+                break;
+            case 1:
+                m_spriteRenderer.color = Color.red;
+                break;
+        }
+    }
+
     public void EnableTripleShot()
     {
         _isTripleShotActive = true;
@@ -200,8 +239,11 @@ public class Player : MonoBehaviour
 
     public void EnableShield()
     {
+        _shieldStrength = 3;
+        m_spriteRenderer.color = Color.white;
         _isShieldActive = true;
         _shieldFXPrefab.SetActive(true);
+
         StartCoroutine(PowerDown());
 
 

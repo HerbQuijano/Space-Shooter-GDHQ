@@ -12,10 +12,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private int powerUpID;
 
     [SerializeField] private AudioClip _powerUpSound;
-    void Start()
-    {
-        
-    }
+ 
 
     // Update is called once per frame
     void Update()
