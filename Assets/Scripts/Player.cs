@@ -16,10 +16,8 @@ public class Player : MonoBehaviour
     private float _nextFire = 0.0f;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private GameObject _shieldFXPrefab;
-
     [SerializeField] private GameObject _rightEngineDamage;
     [SerializeField] private GameObject _leftEngineDamage;
-
     [SerializeField] private int _playerHealth = 3;
     private int _shieldStrength = 3;
     private SpawnManager _spawnManager;
@@ -30,10 +28,11 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private int _score = 0;
     private UIManager _ui_manager;
+    public int ammoCount = 15;
 
     private bool _isShiftPressed = false;
-    private Color m_shieldColor;
-    private float m_Red, m_Blue, m_Green;
+//    private Color m_shieldColor;
+//   private float m_Red, m_Blue, m_Green;
     private SpriteRenderer m_spriteRenderer;
 
 
@@ -84,9 +83,21 @@ public class Player : MonoBehaviour
             }
             if (_isTripleShotActive == false)
             {
-                Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+                if (ammoCount > 0)
+                {
+                    Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+                    _audioSource.Play();
+                    ammoCount -= 1;
+                    _ui_manager.UpdateAmmo(ammoCount);
+                }
+                else if (ammoCount <= 0)
+                {
+                    _ui_manager.UpdateAmmo(ammoCount);
+                    _audioSource.Stop();
+                }
+                
             }
-            _audioSource.Play();
+            
 
 
         }
@@ -157,7 +168,7 @@ public class Player : MonoBehaviour
             ShieldDamage();
             return;
         }
-        _playerHealth = _playerHealth - 1;
+        _playerHealth -= 1;
 
         if (_playerHealth == 2)
         {
@@ -185,7 +196,7 @@ public class Player : MonoBehaviour
 
     private void ShieldDamage()
     {
-        _shieldStrength = _shieldStrength - 1;
+        _shieldStrength -= 1;
         ShieldColorChange();
 
 
@@ -260,6 +271,11 @@ public class Player : MonoBehaviour
     public string GetLives()
     {
         return _playerHealth.ToString();
+    }
+
+    public string GetAmmo()
+    {
+        return ammoCount.ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
