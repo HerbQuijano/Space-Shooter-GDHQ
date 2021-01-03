@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private float _nextFire = 0.0f;
     [SerializeField] private float _fireRate = 0.5f;
     [SerializeField] private GameObject _shieldFXPrefab;
-   
+
     [SerializeField] private GameObject _rightEngineDamage;
     [SerializeField] private GameObject _leftEngineDamage;
 
@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private int _score = 0;
     private UIManager _ui_manager;
+
+    private bool _isShiftPressed = false;
 
     void Start()
     {
@@ -101,7 +103,26 @@ public class Player : MonoBehaviour
             _shipSpeed = 10f;
         }
 
-        transform.Translate(direction * _shipSpeed * Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _isShiftPressed = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            _isShiftPressed = false;
+        }
+
+        if (_isShiftPressed == true)
+        {
+            transform.Translate(direction * (_shipSpeed*1.5f) * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(direction * _shipSpeed * Time.deltaTime);
+        }
+        
+
+
 
 
 
@@ -139,10 +160,10 @@ public class Player : MonoBehaviour
         {
             _rightEngineDamage.SetActive(true);
         }
-        
-        
+
+
         _ui_manager.UpdateLives(_playerHealth);
-       
+
 
         if (_playerHealth <= 0)
         {
