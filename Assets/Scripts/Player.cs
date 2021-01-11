@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer m_spriteRenderer;
     [SerializeField] private Slider _thrustersSlider;
     
+    
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
