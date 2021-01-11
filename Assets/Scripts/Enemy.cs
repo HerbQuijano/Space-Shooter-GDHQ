@@ -11,13 +11,11 @@ public class Enemy : MonoBehaviour
     private float _enemyFireRate = 3.0f;
     private float _canFire = -1.0f;
 
-
-
-
     private void Start()
     {
         _explosionSound = GetComponent<AudioSource>();
         _enemyAnimator = GetComponent<Animator>();
+
     }
     void Update()
     {
@@ -39,8 +37,6 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-
         if (other.gameObject.CompareTag("Player"))
         {
             //Debug.Log("Hit: Player");
@@ -58,27 +54,26 @@ public class Enemy : MonoBehaviour
                 Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 2.3f);
             }
-
         }
 
         if (other.gameObject.CompareTag("Projectile"))
         {
             Player player = FindObjectOfType<Player>();
             Destroy(other.gameObject);
+            Destroy(GetComponent<Collider2D>());
+            Destroy(this.gameObject.GetComponentInChildren<Laser>());
             player.AddScore(_enemyScoreValue);
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
             _explosionSound.Play();
-            Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2f);
+
         }
     }
 
     void EnemyMovement()
     {
         transform.Translate(Vector3.down * Time.deltaTime * _enemySpeed);
-
-
         if (transform.position.y <= -7f)
         {
             Destroy(this.gameObject);

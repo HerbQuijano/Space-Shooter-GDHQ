@@ -12,10 +12,4 @@ public class Explosion : MonoBehaviour
         _explosionAudio.Play();
         Destroy(gameObject, 2.3f);
     }
-
-    
-    void Update()
-    {
-        
-    }
 }

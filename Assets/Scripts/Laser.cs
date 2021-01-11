@@ -6,7 +6,7 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class Laser : MonoBehaviour
 {
- 
+
     [SerializeField] private float _laserSpeed = 12f;
     private bool _isEnemyLaser = false;
 
@@ -21,10 +21,10 @@ public class Laser : MonoBehaviour
         {
             MoveDown();
         }
-        
-       // DestroyLaser();
+
+        // DestroyLaser();
     }
-      
+
     private void MoveUp()
     {
         transform.Translate(Vector3.up * Time.deltaTime * _laserSpeed);
@@ -45,7 +45,7 @@ public class Laser : MonoBehaviour
     private void MoveDown()
     {
         transform.Translate(Vector3.down * Time.deltaTime * _laserSpeed);
-        
+
         if (transform.position.y <= -8)
         {
             if (transform.parent != null)
@@ -66,7 +66,7 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && _isEnemyLaser ==  true)
+        if (collision.gameObject.CompareTag("Player") && _isEnemyLaser == true)
         {
             Player player = collision.GetComponent<Player>();
             if (!player)
@@ -77,7 +77,7 @@ public class Laser : MonoBehaviour
             {
                 player.ReceiveDamage();
             }
-                
+
         }
     }
 }

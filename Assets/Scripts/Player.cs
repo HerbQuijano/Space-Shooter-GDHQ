@@ -11,8 +11,9 @@ public class Player : MonoBehaviour
 {
     [SerializeField] public float _shipSpeed;
     private float _baseCubeSpeed;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] GameObject tripleShotPrefab;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject tripleShotPrefab;
+    [SerializeField] private GameObject _heatSeekerPrefab;
     [SerializeField] private GameObject _explosionPrefab;
     private float _nextFire = 0.0f;
     [SerializeField] private float _fireRate = 0.5f;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     private int _shieldStrength = 3;
     private SpawnManager _spawnManager;
     [SerializeField] private bool _isTripleShotActive = false;
+    [SerializeField] private bool _isHeatSeekerActive = false;
     [SerializeField] private bool _isShieldActive = false;
     [SerializeField] private bool _isSpeedBoostActive = false;
     [SerializeField] private AudioClip _audioClip;
@@ -30,13 +32,10 @@ public class Player : MonoBehaviour
     [SerializeField] private int _score = 0;
     private UIManager _ui_manager;
     public int ammoCount = 15;
-
     private bool _isShiftPressed = false;
-    //    private Color m_shieldColor;
-    //   private float m_Red, m_Blue, m_Green;
     private SpriteRenderer m_spriteRenderer;
-
-
+    [SerializeField] private Slider _thrustersSlider;
+    
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -45,6 +44,9 @@ public class Player : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _baseCubeSpeed = _shipSpeed;
         m_spriteRenderer = _shieldFXPrefab.GetComponent<SpriteRenderer>();
+        _thrustersSlider.gameObject.SetActive(false);
+        
+        
 
         if (_spawnManager == null)
         {
@@ -64,6 +66,8 @@ public class Player : MonoBehaviour
             _audioSource.clip = _audioClip;
         }
     }
+
+
 
     public void AddExtraLife()
     {
@@ -92,7 +96,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         Fire();
-
+        _thrustersSlider.value -= Time.deltaTime;
     }
 
     private void Fire()
@@ -106,29 +110,36 @@ public class Player : MonoBehaviour
                 Instantiate(tripleShotPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
                 _audioSource.Play();
             }
-            if (_isTripleShotActive == false)
+            if (_isHeatSeekerActive == true) //remove on other player version for continuous heatseeker
             {
-                if (ammoCount > 0)
-                {
-                    Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
-                    _audioSource.Play();
-                    ammoCount -= 1;
-                    _ui_manager.UpdateAmmo(ammoCount);
-                }
-                else if (ammoCount <= 0)
-                {
-                    _ui_manager.UpdateAmmo(ammoCount);
-                    _audioSource.Stop();
-                }
-
+                Instantiate(_heatSeekerPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+                _audioSource.Play();
             }
 
-
+            if (_isTripleShotActive == false && _isHeatSeekerActive == false)
+            {
+                FireLaser();
+            }
 
         }
 
     }
 
+    private void FireLaser()
+    {
+        if (ammoCount > 0)
+        {
+            Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+            _audioSource.Play();
+            ammoCount -= 1;
+            _ui_manager.UpdateAmmo(ammoCount);
+        }
+        else if (ammoCount <= 0)
+        {
+            _ui_manager.UpdateAmmo(ammoCount);
+            _audioSource.Stop();
+        }
+    }
 
     void CalculateMovement()
     {
@@ -195,9 +206,8 @@ public class Player : MonoBehaviour
         }
         _playerHealth -= 1;
         UpdateEngineDamage();
-
         _ui_manager.UpdateLives(_playerHealth);
-
+            
 
         if (_playerHealth <= 0)
         {
@@ -206,6 +216,8 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
 
         }
+
+
 
 
     }
@@ -270,9 +282,19 @@ public class Player : MonoBehaviour
         StartCoroutine(PowerDown());
     }
 
+    public void EnableHeatSeeker()
+    {
+        _isHeatSeekerActive = true;
+        StartCoroutine(HeatSeekerPowerDown());
+
+    }
+
     public void EnableSpeedBoost()
     {
         _isSpeedBoostActive = true;
+        _thrustersSlider.gameObject.SetActive(true);
+        _thrustersSlider.value = 6f;
+        
         StartCoroutine(PowerDown());
     }
 
@@ -283,8 +305,15 @@ public class Player : MonoBehaviour
         _isTripleShotActive = false;
         _isShieldActive = false;
         _shieldFXPrefab.SetActive(false);
-
+        _thrustersSlider.gameObject.SetActive(false);
     }
+
+    IEnumerator HeatSeekerPowerDown()
+    {
+        yield return new WaitForSeconds(5f);
+        _isHeatSeekerActive = false;
+    }
+
 
     public void EnableShield()
     {

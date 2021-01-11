@@ -12,7 +12,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private int powerUpID;
 
     [SerializeField] private AudioClip _powerUpSound;
- 
+
 
     // Update is called once per frame
     void Update()
@@ -56,14 +56,16 @@ public class PowerUp : MonoBehaviour
                     case 4:
                         player.AddExtraLife();
                         break;
-
+                    case 5:
+                        player.EnableHeatSeeker();
+                        break;
                 }
-              
+
                 Destroy(this.gameObject);
+
+            }
 
         }
 
-    }
-       
     }
 }

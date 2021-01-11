@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
             Debug.LogError("GameManager does not exist");
             return;
         }
-        
+
 
     }
 
@@ -95,5 +95,5 @@ public class UIManager : MonoBehaviour
 
 }
 
-    
+
 
