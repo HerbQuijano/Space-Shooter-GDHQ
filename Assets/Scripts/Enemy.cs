@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         {
             Player player = FindObjectOfType<Player>();
             Destroy(other.gameObject);
-            Destroy(GetComponent<Collider2D>());
+            Destroy(GetComponent<Collider2D>()); // error happening here
             Destroy(this.gameObject.GetComponentInChildren<Laser>());
             player.AddScore(_enemyScoreValue);
             _enemyAnimator.SetTrigger("OnEnemyDeath");

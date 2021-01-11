@@ -76,13 +76,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 389941335126347344, guid: 1cf59f9c6e3e3a0488f18894af51d3be, type: 3}
-  enemySpawnTime: 1
-  powerUpSpawnTime: 0
+  enemySpawnTime: 2
+  _heatSeekerPrefab: {fileID: 1886347584652195088, guid: b07fb19931204fe4f91b68213df539b0, type: 3}
   _enemyContainer: {fileID: 7908120761647813000}
   _powerUpPrefabs:
   - {fileID: 1837389632934130693, guid: 418cd0ca78aa87e478dcb8bb4051c82f, type: 3}
   - {fileID: 1837389632934130693, guid: 1f00d3181872f084c8b30a8b5cb2016e, type: 3}
   - {fileID: 5338307039651813497, guid: e3f139f3262eda347b756bdb905797b3, type: 3}
+  - {fileID: 6989668026849239554, guid: 62846204dc425654799d8e519eb82f50, type: 3}
+  - {fileID: 6929706505248755710, guid: 7a34c741b0458c640825e94d224a3edd, type: 3}
   _powerUpContainer: {fileID: 8763171258367821424}
 --- !u!1 &8763171258367821424
 GameObject:

@@ -34,9 +34,13 @@ public class Player : MonoBehaviour
     public int ammoCount = 15;
     private bool _isShiftPressed = false;
     private SpriteRenderer m_spriteRenderer;
-    [SerializeField] private Slider _thrustersSlider;
-    
-    
+    [SerializeField] private Slider _speedPowerUpSlider;
+    [SerializeField] private Slider _thrusterChargeSlider;
+    [SerializeField] private ShakeCamera cameraShake;
+    private float _thrusterRate = 2f;
+    private float _nextThruster = 0.0f;
+    private float maxThrusterTime;
+
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -45,9 +49,8 @@ public class Player : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _baseCubeSpeed = _shipSpeed;
         m_spriteRenderer = _shieldFXPrefab.GetComponent<SpriteRenderer>();
-        _thrustersSlider.gameObject.SetActive(false);
-        
-        
+        _speedPowerUpSlider.gameObject.SetActive(false);
+        maxThrusterTime = 1.5f;
 
         if (_spawnManager == null)
         {
@@ -70,34 +73,15 @@ public class Player : MonoBehaviour
 
 
 
-    public void AddExtraLife()
-    {
-        if (_playerHealth >= 3)
-        {
-            _ui_manager.UpdateLives(_playerHealth);
-            UpdateEngineDamage();
-        }
-        else
-        {
-            Debug.Log(_playerHealth);
-            _playerHealth += 1;
-            _ui_manager.UpdateLives(_playerHealth);
-            UpdateEngineDamage();
-        }
-    }
 
-    public void AddAmmo()
-    {
-        ammoCount = 15;
-        _ui_manager.UpdateAmmo(ammoCount);
-
-    }
 
     void Update()
     {
         CalculateMovement();
         Fire();
-        _thrustersSlider.value -= Time.deltaTime;
+        _speedPowerUpSlider.value -= Time.deltaTime;
+        _thrusterChargeSlider.value = maxThrusterTime;
+
     }
 
     private void Fire()
@@ -159,29 +143,28 @@ public class Player : MonoBehaviour
             _shipSpeed = 10f;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time >= _nextThruster)
         {
+            _nextThruster = Time.time + _thrusterRate;
             _isShiftPressed = true;
+            StartCoroutine(ThrusterChargeDown());
+           
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _isShiftPressed = false;
+            StartCoroutine(ThrusterChargeUp());
         }
 
         if (_isShiftPressed == true)
         {
             transform.Translate(direction * (_shipSpeed * 1.5f) * Time.deltaTime);
+            StartCoroutine(ThrustersOFF());
         }
         else
         {
             transform.Translate(direction * _shipSpeed * Time.deltaTime);
         }
-
-
-
-
-
-
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -11.3f, 11.3f), transform.position.y, 0);
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -5f, 0), 0);
 
@@ -208,7 +191,7 @@ public class Player : MonoBehaviour
         _playerHealth -= 1;
         UpdateEngineDamage();
         _ui_manager.UpdateLives(_playerHealth);
-            
+        StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
 
         if (_playerHealth <= 0)
         {
@@ -293,9 +276,9 @@ public class Player : MonoBehaviour
     public void EnableSpeedBoost()
     {
         _isSpeedBoostActive = true;
-        _thrustersSlider.gameObject.SetActive(true);
-        _thrustersSlider.value = 6f;
-        
+        _speedPowerUpSlider.gameObject.SetActive(true);
+        _speedPowerUpSlider.value = 6f;
+
         StartCoroutine(PowerDown());
     }
 
@@ -306,7 +289,7 @@ public class Player : MonoBehaviour
         _isTripleShotActive = false;
         _isShieldActive = false;
         _shieldFXPrefab.SetActive(false);
-        _thrustersSlider.gameObject.SetActive(false);
+        _speedPowerUpSlider.gameObject.SetActive(false);
     }
 
     IEnumerator HeatSeekerPowerDown()
@@ -315,6 +298,26 @@ public class Player : MonoBehaviour
         _isHeatSeekerActive = false;
     }
 
+    IEnumerator ThrustersOFF()
+    {
+        yield return new WaitForSeconds(2f);
+        _isShiftPressed = false;
+
+    }
+
+    IEnumerator ThrusterChargeUp()
+    {
+        maxThrusterTime = Time.deltaTime + 1.5f;
+        
+        yield return new WaitForSeconds(1.5f);
+    }
+
+    IEnumerator ThrusterChargeDown()
+    {
+        maxThrusterTime = Time.deltaTime - 1.5f;
+        
+        yield return new WaitForSeconds(1.5f);
+    }
 
     public void EnableShield()
     {
@@ -333,6 +336,27 @@ public class Player : MonoBehaviour
 
         this._score = _score + score;
         _ui_manager.UpdateScore(_score);
+
+    }
+    public void AddExtraLife()
+    {
+        if (_playerHealth >= 3)
+        {
+            _ui_manager.UpdateLives(_playerHealth);
+            UpdateEngineDamage();
+        }
+        else
+        {
+            Debug.Log(_playerHealth);
+            _playerHealth += 1;
+            _ui_manager.UpdateLives(_playerHealth);
+            UpdateEngineDamage();
+        }
+    }
+    public void AddAmmo()
+    {
+        ammoCount = 15;
+        _ui_manager.UpdateAmmo(ammoCount);
 
     }
 
